@@ -2,7 +2,7 @@ import "./cv.css";
 
 export function CvTemplate() {
   return (
-    <>
+    <div className="cv-display">
       <section>
         <h1>Everaldo da Cruz Ferreira Leite Sobrinho</h1>
         <p>Estrada da Boiúna, 2986, casa 3 22723-020, Rio de Janeiro, Rj</p>
@@ -54,6 +54,6 @@ export function CvTemplate() {
           </ul>
         </li>
       </ul>
-    </>
+    </div>
   );
 }
