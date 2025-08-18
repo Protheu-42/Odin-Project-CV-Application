@@ -1,0 +1,32 @@
+.input-display .input-section,
+.input-display .input-section-contact,
+.input-display .input-section-courses {
+  display: grid;
+}
+
+.input-display .input-section-contact label,
+.input-display .input-section-courses label {
+  display: grid;
+}
+
+.input-display input {
+  margin-bottom: 10px;
+  width: 75%;
+}
+
+.input-display h1 {
+  margin-bottom: 5px;
+}
+
+.input-display textarea {
+  width: 85%;
+}
+
+.input-display ul {
+  padding-left: 0;
+}
+
+.input-display button {
+  padding: 15px;
+  font-weight: bolder;
+}
