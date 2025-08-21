@@ -3,7 +3,7 @@
 .input-display .input-section-courses {
   display: grid;
 }
-
+.input-display .input-section label,
 .input-display .input-section-contact label,
 .input-display .input-section-courses label {
   display: grid;

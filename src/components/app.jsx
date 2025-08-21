@@ -11,22 +11,27 @@ export function App() {
   const [goal, setGoal] = useState(
     "Raze your lands, take your money, conquer your castle and leave on banner on the place"
   );
-  const [academicFormations, setAcademicFormations] = useState([
-    {
-      index: 0,
-      institution: "University of the Khan",
-      courseTitle: "Greater Khan formation",
-      ending: "doesn't matter",
-    },
-  ]);
+  const [academicFormations, setAcademicFormations] = useState({
+    institution: "University of the Khan",
+    courseTitle: "Greater Khan formation",
+    ending: "doesn't matter",
+  });
+
+  function SubmitButton() {
+    return <p>loading...</p>;
+  }
 
   return (
+    //Tudo abaixo tem que ser um if, e o else deve ser ativo pelo submit button
     <div className="input-display">
       <Contact contact={contact} onChangeHandler={contactUpdater} />
       <Objective goal={goal} onChangeHandler={objectiveUpdater} />
-      <AcademicExp courses={academicFormations} />
+      <AcademicExp
+        course={academicFormations}
+        onChangeHandler={academicFormationUpdater}
+      />
       <ProfissionalExp />
-      <SubmitButton />
+      <button onClick={SubmitButton}>Submit</button>
     </div>
   );
 
@@ -69,7 +74,32 @@ export function App() {
     setGoal(event.target.value);
   }
 
-  function academicFormationUpdater(index, event) {}
+  function academicFormationUpdater(type, event) {
+    switch (type) {
+      case "institution":
+        setAcademicFormations((prevFormation) => ({
+          ...prevFormation,
+          institution: event.target.value,
+        }));
+        break;
+
+      case "courseTitle":
+        setAcademicFormations((prevFormation) => ({
+          ...prevFormation,
+          courseTitle: event.target.value,
+        }));
+        break;
+
+      case "ending":
+        setAcademicFormations((prevFormation) => ({
+          ...prevFormation,
+          ending: event.target.value,
+        }));
+        break;
+      default:
+        break;
+    }
+  }
 }
 
 function Contact({ contact, onChangeHandler }) {
@@ -135,49 +165,36 @@ function Objective({ goal, onChangeHandler }) {
   );
 }
 
-/* function AcademicExp() {
+function AcademicExp({ course, onChangeHandler }) {
   return (
     <section>
       <h1>Formação</h1>
-      <section className="input-section">
-        <label htmlFor="institution">Insituição</label>
-        <input type="text" id="institution" />
-        <label htmlFor="course">Descrição da Formação</label>
-        <input type="text" id="course" />
-        <label htmlFor="conclusion">Conclusão</label>
-        <input type="text" id="conclusion" />
-        <button>Delete</button>
+      <section className="input-section-courses">
+        <label>
+          Instituição
+          <input
+            type="text"
+            value={course.institution}
+            onChange={(event) => onChangeHandler("institution", event)}
+          />
+        </label>
+        <label>
+          Descrição da Formação
+          <input
+            type="text"
+            value={course.courseTitle}
+            onChange={(event) => onChangeHandler("courseTitle", event)}
+          />
+        </label>
+        <label>
+          Conclusão
+          <input
+            type="text"
+            value={course.ending}
+            onChange={(event) => onChangeHandler("ending", event)}
+          />
+        </label>
       </section>
-      <button>Add new course</button>
-    </section>
-  );
-} */
-
-function AcademicExp({ courses }) {
-  // Preciso arranjar uma forma de o onChange conseguir filtrar o elemento certo na array para atualiza-lo
-  const test = courses.filter((course) => course.index === 0);
-
-  return (
-    <section>
-      <h1>Formação</h1>
-      {courses.map((course) => {
-        return (
-          <section key={course.index} className="input-section-courses">
-            <label>
-              Instituição
-              <input type="text" value={course.institution} />
-            </label>
-            <label>
-              Descrição da Formação
-              <input type="text" value={course.courseTitle} />
-            </label>
-            <label>
-              Conclusão
-              <input type="text" value={course.ending} />
-            </label>
-          </section>
-        );
-      })}
     </section>
   );
 }
@@ -188,20 +205,24 @@ function ProfissionalExp() {
       <h1>Histórico Profissional</h1>
       <ul>
         <li className="input-section">
-          <label htmlFor="place1">Nome da empresa</label>
-          <input type="text" id="place1" />
-          <label htmlFor="date1">Quando entrou e quando saiu da empresa</label>
-          <input type="text" id="date1" />
-          <label htmlFor="position1">Cargo</label>
-          <input type="text" id="position1" />
-          <label htmlFor="postionActivities1">Atividades</label>
-          <textarea id="positionActivies1" cols="30" rows="10"></textarea>
+          <label>
+            Nome da empresa
+            <input type="text" id="place" />
+          </label>
+          <label>
+            Quando entrou e quando saiu da empresa
+            <input type="text" id="date" />
+          </label>
+          <label>
+            Cargo
+            <input type="text" id="position" />
+          </label>
+          <label>
+            Atividades
+            <textarea id="positionActivies" cols="30" rows="10"></textarea>
+          </label>
         </li>
       </ul>
     </section>
   );
-}
-
-function SubmitButton() {
-  return <button>Submit</button>;
 }
